@@ -520,6 +520,7 @@ class MyModel(AIxBlockMLBase):
             task = kwargs.get("task", None)
             voice = kwargs.get("voice", None)
             target_language = kwargs.get("target_language", "English")
+            source_language = kwargs.get("source_language", None)
             # Process Audio
             audio_bytes = base64.b64decode(voice)
             audio_buffer = io.BytesIO(audio_bytes)

@@ -41,14 +41,14 @@ DEFAULT_TARGET_LANGUAGE = "French"
 def predict(
     task_name: str,
     audio_source: str,
-    input_audio_mic: str | None,
-    input_audio_file: str | None,
-    input_text: str | None,
-    source_language: str | None,
-    target_language: str,
-    model_demo: SeamlessM4TModel,
-    processor_demo: AutoProcessor,
-    device: str,
+    input_audio_mic: str = None,
+    input_audio_file: str = None,
+    input_text: str = None,
+    source_language: str = None,
+    target_language: str = "English",
+    model_demo: SeamlessM4TModel = None,
+    processor_demo: AutoProcessor = None,
+    device: str = None,
 ) -> tuple[tuple[int, np.ndarray] | None, str]:
     task_name = task_name.split()[0]
     source_language_code = (

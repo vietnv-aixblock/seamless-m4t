@@ -59,6 +59,7 @@ import threading
 from typing import Iterator
 
 import gradio as gr
+from scipy.io import wavfile
 import torch
 from aixblock_ml.model import AIxBlockMLBase
 from huggingface_hub import HfFolder, login
@@ -540,15 +541,26 @@ class MyModel(AIxBlockMLBase):
                 )
             if audio_out:
                 rate, waveform = audio_out
+                # Convert waveform numpy array to WAV in memory and encode as base64
+                wav_buffer = io.BytesIO()
+                # Ensure waveform is 2D for wavfile.write (shape: (n_samples,) or (n_samples, n_channels))
+                if waveform.ndim == 1:
+                    wav_data = waveform
+                else:
+                    wav_data = waveform.squeeze()
+                wavfile.write(wav_buffer, rate, wav_data)
+                wav_buffer.seek(0)
+                wav_bytes = wav_buffer.read()
+                waveform_base64 = base64.b64encode(wav_bytes).decode('utf-8')
             else:
-                waveform = None
+                waveform_base64 = None
 
             del processor, model
             gc.collect()
             torch.cuda.empty_cache()
             return {
                 "message": "predict completed successfully",
-                "result": {"audio_out": waveform, "text_out": text_out},
+                "result": {"audio_out": waveform_base64, "text_out": text_out},
             }
         elif command.lower() == "prompt_sample":
             task = kwargs.get("task", "")

@@ -532,7 +532,7 @@ class MyModel(AIxBlockMLBase):
                     audio_source="file",
                     input_audio_file=audio_buffer,
                     input_text=text,
-                    source_language=None,
+                    source_language=source_language,
                     target_language=target_language,
                     model_demo=model,
                     processor_demo=processor,

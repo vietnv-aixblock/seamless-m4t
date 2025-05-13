@@ -536,7 +536,6 @@ class MyModel(AIxBlockMLBase):
                     model_demo=model,
                     processor_demo=processor,
                     device=device,
-                    model_loaded=True,
                 )
             if audio_out:
                 rate, waveform = audio_out

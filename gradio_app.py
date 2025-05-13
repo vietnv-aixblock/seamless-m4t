@@ -49,12 +49,7 @@ def predict(
     model_demo: SeamlessM4TModel,
     processor_demo: AutoProcessor,
     device: str,
-    model_loaded: bool = False,
 ) -> tuple[tuple[int, np.ndarray] | None, str]:
-    if not model_loaded:
-        gr.Warning("Please load the model before translating.")
-        return None, "Please load the model before translating."
-
     task_name = task_name.split()[0]
     source_language_code = (
         LANGUAGE_NAME_TO_CODE[source_language] if source_language else None

@@ -29,7 +29,7 @@ aixblock-sdk==0.0.5
 aixblock-tools
 tensorboardX
 # ==1.9
-gradio==3.50.2
+gradio
 redis
 rq
 flask>=2.2

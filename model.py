@@ -541,14 +541,20 @@ class MyModel(AIxBlockMLBase):
                 )
             if audio_out:
                 rate, waveform = audio_out
+                import numpy as np
                 # Convert waveform numpy array to WAV in memory and encode as base64
                 wav_buffer = io.BytesIO()
-                # Ensure waveform is 2D for wavfile.write (shape: (n_samples,) or (n_samples, n_channels))
+                # Ensure waveform is 1D or 2D
                 if waveform.ndim == 1:
                     wav_data = waveform
                 else:
                     wav_data = waveform.squeeze()
-                wavfile.write(wav_buffer, rate, wav_data)
+                # Convert to int16 if float
+                if np.issubdtype(wav_data.dtype, np.floating):
+                    wav_data = (wav_data * 32767).astype(np.int16)
+                else:
+                    wav_data = wav_data.astype(np.int16)
+                wavfile.write(wav_buffer, int(rate), wav_data)
                 wav_buffer.seek(0)
                 wav_bytes = wav_buffer.read()
                 waveform_base64 = base64.b64encode(wav_bytes).decode('utf-8')

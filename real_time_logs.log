@@ -1,0 +1,15 @@
+Download tokenizerQwen/Qwen2.5-Coder-7B-InstructMap:   0%|                                                                       | 0/131 [00:00<?, ? examples/s]Map: 100%|###########################################################| 131/131 [00:00<00:00, 3281.75 examples/s]Map:   0%|                                                                        | 0/33 [00:00<?, ? examples/s]Map: 100%|##############################################################| 33/33 [00:00<00:00, 856.76 examples/s]> c:\users\admin\onedrive\documents\github\qwen-2.5-coder-7.5b-instruct\run_distributed_accelerate.py(185)<module>()
+-> "dataset_text_field": "text",(Pdb) Dataset({
+    features: ['text'],
+    num_rows: 131
+})(Pdb) Traceback (most recent call last):
+  File "C:\Users\Admin\OneDrive\Documents\GitHub\qwen-2.5-coder-7.5B-instruct\run_distributed_accelerate.py", line 185, in <module>
+    "dataset_text_field": "text",
+    ^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\anaconda3\Lib\bdb.py", line 90, in trace_dispatch
+    return self.dispatch_line(frame)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\Admin\anaconda3\Lib\bdb.py", line 115, in dispatch_line
+    if self.quitting: raise BdbQuit
+                      ^^^^^^^^^^^^^
+bdb.BdbQuit

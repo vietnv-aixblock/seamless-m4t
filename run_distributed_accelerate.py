@@ -20,10 +20,6 @@ from trl import SFTTrainer
 from logging_class import start_queue, write_log
 
 # ---------------------------------------------------------------------------
-# subprocess.run(
-#     "venv/bin/pip install torch==2.6.0 torchvision==0.21.0 torchaudio==2.6.0 --index-url https://download.pytorch.org/whl/cu126",
-#     shell=True,
-# )
 HfFolder.save_token("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")
 wandb.login("allow", "cd65e4ccbe4a97f6b8358f78f8ecf054f21466d9")
 os.environ["CUDA_VISIBLE_DEVICES"] = "0,1"
@@ -56,7 +52,10 @@ parser.add_argument(
     help="Field name for prompts in the dataset",
 )
 parser.add_argument(
-    "--text_field", type=str, default="response", help="Field name for text in the dataset"
+    "--text_field",
+    type=str,
+    default="response",
+    help="Field name for text in the dataset",
 )
 
 args = parser.parse_args()
@@ -87,7 +86,7 @@ else:
     compute_dtype = torch.float16
     attn_implementation = "sdpa"
 torch.set_grad_enabled(True)
-model_name = args.model_id if args.model_id else "Qwen/Qwen2.5-Coder-7B-Instruct"
+model_name = args.model_id if args.model_id else "google/gemma-3-4b-it"
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 logger.info(f"Using device: {device}")
@@ -119,8 +118,6 @@ def formatting_prompts_func(examples):
         max_length=128,
         return_tensors="pt",
     )
-
-
 
 
 def tokenizer_func(examples):

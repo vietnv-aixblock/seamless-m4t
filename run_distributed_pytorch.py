@@ -9,13 +9,8 @@ import wandb
 from datasets import load_dataset
 from torch.utils.data.dataloader import DataLoader
 from transformers import (  # BitsAndBytesConfig,AutoConfig,
-    AutoModelForCausalLM,
-    AutoTokenizer,
-    DataCollatorWithPadding,
-    TrainerCallback,
-    TrainingArguments,
-    pipeline,
-)
+    AutoModelForCausalLM, AutoTokenizer, DataCollatorWithPadding,
+    TrainerCallback, TrainingArguments, pipeline)
 from trl import SFTTrainer
 
 from logging_class import start_queue, stop_log, write_log

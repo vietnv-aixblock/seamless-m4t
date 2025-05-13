@@ -3,7 +3,6 @@ import timeit
 
 import horovod.torch as hvd
 import numpy as np
-
 # import torch.backends.cudnn as cudnn
 import torch.nn.functional as F
 import torch.optim as optim

@@ -2,43 +2,22 @@ import os
 
 import torch
 from huggingface_hub import HfFolder
-from transformers import pipeline
+from transformers import AutoProcessor, SeamlessM4TModel
 
-# Đặt token của bạn vào đây
+# -----------------------------------------------------------------------
 hf_token = os.getenv("HF_TOKEN", "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")
-# Lưu token vào local
 HfFolder.save_token(hf_token)
 
 from huggingface_hub import login
 
-
-login(token=hf_access_token)
-
-
-def _load():
-    if torch.cuda.is_available():
-        if torch.cuda.is_bf16_supported():
-            dtype = torch.bfloat16
-        else:
-            dtype = torch.float16
-
-        print("CUDA is available.")
-
-        _model = pipeline(
-            "text-generation",
-            model="Qwen/Qwen2.5-Coder-7B-Instruct",
-            torch_dtype=dtype,
-            device_map="auto",
-            max_new_tokens=256,
-        )
-    else:
-        print("No GPU available, using CPU.")
-        _model = pipeline(
-            "text-generation",
-            model="Qwen/Qwen2.5-Coder-7B-Instruct",
-            device_map="cpu",
-            max_new_tokens=256,
-        )
+login(token=hf_token)
 
 
-_load()
+def load():
+    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+    model_id = "facebook/hf-seamless-m4t-medium"
+    processor = AutoProcessor.from_pretrained(model_id)
+    model = SeamlessM4TModel.from_pretrained(model_id).to(device)
+
+
+load()
